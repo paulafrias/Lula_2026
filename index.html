@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brasil Pronto pra Mais — Hub Lula 2026</title>
+<title>Todos com Lula — Hub Lula 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -240,31 +240,23 @@
     width:100%; padding:11px 12px; border-radius:8px; border:1.5px solid var(--line);
     font-family:'Public Sans',sans-serif; font-size:.95rem; margin-bottom:16px;
   }
-  .progress-wrap{
-    display:flex; align-items:center; gap:14px; margin-bottom:20px;
-  }
-  .progress-bar{flex:1; height:10px; background:var(--line); border-radius:99px; overflow:hidden;}
-  .progress-fill{height:100%; background:var(--red); width:0%; transition:width .3s ease;}
-  #progress-label{font-weight:700; font-size:.88rem; white-space:nowrap;}
 
   .contact-card{
     background:#F7F3E9; border:1px solid var(--line); border-radius:12px;
     padding:16px; margin-bottom:14px;
   }
   .contact-top{
-    display:grid; grid-template-columns:auto 1fr auto auto; gap:10px; align-items:center;
+    display:block;
   }
-  .contact-top input[type=checkbox]{width:19px; height:19px; accent-color:var(--red);}
   .contact-top input[type=text]{
-    padding:9px 10px; border-radius:6px; border:1.5px solid var(--line); font-family:'Public Sans',sans-serif;
+    width:100%; padding:9px 10px; border-radius:6px; border:1.5px solid var(--line); font-family:'Public Sans',sans-serif;
+    font-weight:700;
   }
   .mini-btn{
     padding:8px 12px; border-radius:6px; border:1.5px solid var(--ink); background:transparent;
     font-weight:700; font-size:.76rem; cursor:pointer; white-space:nowrap;
   }
   .mini-btn:hover{background:var(--ink); color:#fff;}
-  .mini-btn.whats{border-color:var(--green); color:var(--green);}
-  .mini-btn.whats:hover{background:var(--green); color:#fff;}
   .objection-area{margin-top:12px;}
   .objection-area label{display:block; font-size:.78rem; font-weight:700; color:var(--ink-soft); margin-bottom:6px;}
   .quick-chips{display:flex; flex-wrap:wrap; gap:6px;}
@@ -273,8 +265,6 @@
     font-size:.74rem; font-weight:700; cursor:pointer; color:var(--ink);
   }
   .chip:hover{background:var(--ink); color:var(--cream);}
-  .ai-btn{border-color:#8A2BE2; color:#8A2BE2;}
-  .ai-btn:hover{background:#8A2BE2; color:#fff;}
   .radical-alert{
     margin-top:10px; background:#FBEAEA; border:1.5px solid #C81D30; border-radius:8px;
     padding:12px 14px; font-size:.85rem; color:#6B1616;
@@ -319,13 +309,12 @@
   .planner h3{font-size:1.15rem;}
   .idoso-card{background:#F7F3E9; border:1px solid var(--line); border-radius:10px; padding:14px; margin-bottom:12px;}
   .idoso-top{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
-  .idoso-top input[type=checkbox]{width:19px; height:19px; accent-color:var(--green); flex-shrink:0;}
   .idoso-top input[type=text]{flex:1; padding:9px 10px; border-radius:6px; border:1.5px solid var(--line); font-size:.9rem; font-family:'Public Sans',sans-serif; font-weight:700;}
   .idoso-top button{flex-shrink:0;}
-  .idoso-plan{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
-  @media (max-width:480px){ .idoso-plan{grid-template-columns:1fr;} }
-  .idoso-plan div label{display:block; font-size:.72rem; font-weight:700; color:var(--ink-soft); margin-bottom:4px;}
-  .idoso-plan input[type=text]{width:100%; padding:8px 9px; border-radius:6px; border:1.5px solid var(--line); font-size:.83rem; font-family:'Public Sans',sans-serif;}
+  .idoso-card textarea{
+    width:100%; min-height:60px; padding:9px 10px; border-radius:6px; border:1.5px solid var(--line);
+    font-family:'Public Sans',sans-serif; font-size:.87rem; resize:vertical;
+  }
 
   /* ---------- CANDIDATOS POR UF ---------- */
   .uf-picker{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:24px;}
@@ -371,14 +360,14 @@
 
 <div class="nav">
   <div class="nav-inner">
-    <div class="brand"><span class="dot"></span> Brasil Pronto pra Mais</div>
+    <div class="brand"><span class="dot"></span> Todos com Lula</div>
     <div class="nav-links">
+      <a href="#corrente">Pense em 5 Pessoas</a>
       <a href="#argumentos">Argumentos</a>
       <a href="#conversar">Como Conversar</a>
       <a href="#simulador">Simulador</a>
-      <a href="#hub">Fontes confiáveis</a>
-      <a href="#corrente">Corrente do Compromisso</a>
       <a href="#eleicao">Dia da Eleição</a>
+      <a href="#hub">Fontes confiáveis</a>
     </div>
   </div>
 </div>
@@ -390,7 +379,7 @@
       <h1>O Brasil está <u>trabalhando</u>. Ajude a garantir que continue.</h1>
       <p class="lead">Um hub com dados, reportagens e argumentos organizados por perfil de eleitor — inclusive para quem não gosta do PT — para conversar com quem ainda não decidiu o voto, com fonte para cada afirmação.</p>
       <div class="cta-row">
-        <a href="#corrente" class="btn btn-primary">Entrar na Corrente do Compromisso</a>
+        <a href="#corrente" class="btn btn-primary">Pense em 5 pessoas</a>
         <a href="#argumentos" class="btn btn-ghost">Ver argumentos por perfil</a>
       </div>
     </div>
@@ -402,12 +391,35 @@
   </div>
 </header>
 
-<div class="urgent-bar">
-  <div class="wrap urgent-inner">
-    <div><strong>Prazo até 14 de setembro</strong> — depois disso não dá mais para pedir o transporte gratuito do TSE para idosos e pessoas com deficiência votarem. <span class="urgent-sub">Programa "Seu Voto Importa", Resolução TSE 23.753/2026.</span></div>
-    <a href="#eleicao" class="btn btn-primary" style="padding:10px 18px; font-size:.86rem;">Ver como pedir</a>
+<section id="corrente">
+  <div class="wrap">
+    <div class="corrente">
+      <div class="section-tag">A ideia central deste site</div>
+      <h2>Pense em 5 pessoas</h2>
+      <p style="max-width:60ch;">Um voto decidido, sozinho, é um voto. Mas se cada pessoa decidida conversar com <strong>até 5 pessoas indecisas</strong>, o efeito se multiplica rápido. Este espaço é seu, pessoal: anote quem você vai procurar e o que ela te disser, pra organizar suas próprias ideias antes da conversa.</p>
+
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h4>Pense nas 5 pessoas</h4><p>Podem ser parentes, amigos, colegas de trabalho ou vizinhos — quem você sabe que ainda não decidiu o voto.</p></div>
+        <div class="step"><div class="n">2</div><h4>Anote o argumento dela</h4><p>Depois de conversar, escreva no campo de cada pessoa o que ela te disse para não votar no Lula. É uma anotação sua, não um formulário.</p></div>
+        <div class="step"><div class="n">3</div><h4>Peça uma sugestão de resposta</h4><p>O site cruza o que você escreveu com a biblioteca de argumentos (ou com a IA) e sugere uma resposta com fonte.</p></div>
+      </div>
+
+      <div class="law-note" style="background:rgba(255,255,255,.08); border-color:var(--gold); color:var(--cream);">
+        <strong>Com parente próximo, mobilize pelo afeto.</strong> Às vezes o motivo pra votar não é o interesse da própria pessoa — é o de quem ela ama. Uma mãe pode se interessar pelo Pé-de-Meia porque a filha estudante se beneficia, mesmo sem se importar muito com política. Pergunte quem, na vida dela, é afetado pelos programas — e comece por aí.
+      </div>
+
+      <div class="commit-box">
+
+        <div id="contact-list"></div>
+
+        <div class="commit-foot">
+          <button class="link-btn" onclick="resetContacts()">Limpar minhas anotações</button>
+          <span style="font-size:.78rem; color:var(--ink-soft);">Fica só no seu navegador — nada é enviado pra nenhum servidor.</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <section id="argumentos">
   <div class="wrap">
@@ -437,6 +449,7 @@
       <div class="tech-card"><div class="tnum">5</div><h4>Um fato de cada vez</h4><p>Escolha o argumento mais forte para aquele perfil (veja as abas acima) em vez de despejar tudo de uma vez.</p></div>
       <div class="tech-card"><div class="tnum">6</div><h4>Termine com convite</h4><p>"Dá uma olhada e me conta o que achou" funciona muito melhor do que "você tem que votar assim".</p></div>
       <div class="tech-card"><div class="tnum">7</div><h4>Meta menor também vale</h4><p>Se a pessoa não vai votar em Lula de jeito nenhum, tirar o voto dela do adversário — para nulo, branco ou outro candidato — já reduz a distância no 1º turno. Não é preciso "ganhar" toda conversa para ela valer a pena.</p></div>
+      <div class="tech-card"><div class="tnum">8</div><h4>Use o carinho por você, com cuidado</h4><p>Com quem já te ama ou confia em você, vale dizer "faço isso porque me importo, escuta nem que seja por mim". Funciona com família e amigos próximos. Não force esse tom com colega de trabalho, vizinho distante, motorista de app ou prestador de serviço — aí a relação não sustenta esse pedido, e pode soar estranho ou manipulador.</p></div>
     </div>
 
     <div class="law-note" style="margin:32px 0;">
@@ -492,6 +505,44 @@
   </div>
 </section>
 
+<section id="eleicao">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Dia 4 de outubro (e 25, se houver 2º turno)</div>
+      <h2>Ligue para 3 pessoas com mais de 70 anos esta semana</h2>
+      <p>17,2 milhões de brasileiros têm 70 anos ou mais — o grupo cresceu 15% desde 2022, dez vezes mais que o eleitorado em geral. Em 2022, 58,9% deles (quase 9 milhões) não votaram; para 2026 a conta chega perto de 10 milhões. A eleição passada foi decidida por 2,1 milhões de votos.</p>
+    </div>
+
+    <div class="tech-grid" style="margin-bottom:32px;">
+      <div class="tech-card"><div class="tnum">85,7%</div><h4>Comparecimento aos 60-69 anos</h4><p>Voto ainda obrigatório — é a faixa que mais vota no Brasil, acima da média nacional de 79,1%.</p></div>
+      <div class="tech-card"><div class="tnum">41,1%</div><h4>Comparecimento aos 70+</h4><p>Voto vira facultativo e o comparecimento despenca — é a mesma pessoa, poucos anos depois, com a mesma opinião política.</p></div>
+      <div class="tech-card"><div class="tnum">48% x 34%</div><h4>Idade hoje favorece Lula</h4><p>Entre 60+, cenário de 2º turno da Quaest de agosto/2026 — inversão em relação a 2018.</p></div>
+    </div>
+
+    <div class="day-grid">
+      <div>
+        <ul class="checklist">
+          <li><div class="check-num">1</div><div><h4>Mapeie quem pode precisar de ajuda</h4><p>Pense em parentes, vizinhas e conhecidas — mulheres de 70+ que moram sozinhas faltam mais e votariam em Lula, mas têm menos gente por perto para ajudar.</p></div></li>
+          <li><div class="check-num">2</div><div><h4>Ligue — não mande mensagem</h4><p>Uma ligação de verdade funciona muito mais do que um texto para essa faixa etária.</p></div></li>
+          <li><div class="check-num">3</div><div><h4>Mobilize pelo afeto, não só pela política</h4><p>Uma avó pode se interessar em votar não pelo próprio benefício, mas pelo do neto ou da neta — o Pé-de-Meia, por exemplo, ajuda quem estuda. Pergunte quem na família dela é afetado pelos programas.</p></div></li>
+          <li><div class="check-num">4</div><div><h4>Combine o transporte</h4><p>Carona, app ou transporte público — combine com antecedência, na véspera, não na hora.</p></div></li>
+          <li><div class="check-num">5</div><div><h4>Saiam cedo</h4><p>Menos fila, menos sol forte, mais tempo se precisar resolver algo no local.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="planner">
+        <h3>Minhas anotações</h3>
+        <p style="font-size:.85rem; color:var(--ink-soft);">Espaço pessoal pra organizar quem você vai procurar — salvo só neste navegador.</p>
+        <div id="idoso-list"></div>
+        <button class="mini-btn" style="margin-top:14px;" onclick="addIdoso()">+ Adicionar pessoa</button>
+        <div style="margin-top:16px;">
+          <button class="link-btn" onclick="resetIdosos()">Limpar esta lista</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="hub">
   <div class="wrap">
     <div class="section-head">
@@ -518,10 +569,6 @@
         <a class="hub-card" href="https://divulgacandcontas.tse.jus.br/divulga/#/" target="_blank" rel="noopener">
           <div class="src">TSE</div>
           <div class="ttl">DivulgaCandContas: ficha, bens e certidões criminais de qualquer candidato em 2026.</div>
-        </a>
-        <a class="hub-card" href="https://www.tse.jus.br/comunicacao/noticias/2026/Julho/seu-voto-importa-programa-organiza-transporte-para-eleitores-com-deficiencia-ou-mobilidade-reduzida" target="_blank" rel="noopener">
-          <div class="src">TSE</div>
-          <div class="ttl">Programa Seu Voto Importa: transporte gratuito para idosos e pessoas com deficiência.</div>
         </a>
       </div>
 
@@ -577,83 +624,7 @@
   </div>
 </section>
 
-<section id="corrente">
-  <div class="wrap">
-    <div class="corrente">
-      <div class="section-tag">A ideia central deste site</div>
-      <h2>A Corrente do Compromisso</h2>
-      <p style="max-width:60ch;">Um voto decidido, sozinho, é um voto. Mas se cada pessoa decidida conversar com <strong>até 5 pessoas indecisas</strong>, o efeito se multiplica rápido. Anote o que a pessoa te disser — o site sugere uma resposta com fonte.</p>
 
-      <div class="steps">
-        <div class="step"><div class="n">1</div><h4>Assuma seu compromisso</h4><p>Escreva seu nome (fica só no seu navegador) e pense em 5 pessoas na sua vida que ainda não decidiram o voto.</p></div>
-        <div class="step"><div class="n">2</div><h4>Anote a objeção dela</h4><p>Depois de conversar, escreva no campo de cada pessoa o argumento que ela usou contra o Lula.</p></div>
-        <div class="step"><div class="n">3</div><h4>Peça uma sugestão de resposta</h4><p>O site cruza o que você escreveu com a biblioteca de argumentos e sugere uma resposta com fonte.</p></div>
-      </div>
-
-      <div class="commit-box">
-        <label for="meu-nome">Seu nome (opcional, fica salvo só neste navegador)</label>
-        <input type="text" id="meu-nome" placeholder="Ex: Ana">
-
-        <div class="progress-wrap">
-          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-          <div id="progress-label">0 de 5</div>
-        </div>
-
-        <div id="contact-list"></div>
-
-        <div class="commit-foot">
-          <button class="link-btn" onclick="resetContacts()">Limpar minha lista</button>
-          <span style="font-size:.78rem; color:var(--ink-soft);">Seus dados ficam só no seu navegador — nada é enviado para nenhum servidor.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="eleicao">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-tag">Dia 4 de outubro (e 25, se houver 2º turno)</div>
-      <h2>Ligue para 3 pessoas com mais de 70 anos esta semana</h2>
-      <p>17,2 milhões de brasileiros têm 70 anos ou mais — o grupo cresceu 15% desde 2022, dez vezes mais que o eleitorado em geral. Em 2022, 58,9% deles (quase 9 milhões) não votaram; para 2026 a conta chega perto de 10 milhões. A eleição passada foi decidida por 2,1 milhões de votos.</p>
-    </div>
-
-    <div class="tech-grid" style="margin-bottom:32px;">
-      <div class="tech-card"><div class="tnum">85,7%</div><h4>Comparecimento aos 60-69 anos</h4><p>Voto ainda obrigatório — é a faixa que mais vota no Brasil, acima da média nacional de 79,1%.</p></div>
-      <div class="tech-card"><div class="tnum">41,1%</div><h4>Comparecimento aos 70+</h4><p>Voto vira facultativo e o comparecimento despenca — é a mesma pessoa, poucos anos depois, com a mesma opinião política.</p></div>
-      <div class="tech-card"><div class="tnum">48% x 34%</div><h4>Idade hoje favorece Lula</h4><p>Entre 60+, cenário de 2º turno da Quaest de agosto/2026 — inversão em relação a 2018.</p></div>
-    </div>
-
-    <div class="day-grid">
-      <div>
-        <ul class="checklist">
-          <li><div class="check-num">1</div><div><h4>Mapeie quem pode precisar de ajuda</h4><p>Pense em parentes, vizinhas e conhecidas — mulheres de 70+ que moram sozinhas faltam mais e votariam em Lula, mas têm menos gente por perto para ajudar.</p></div></li>
-          <li><div class="check-num">2</div><div><h4>Ligue — não mande mensagem</h4><p>Uma ligação de verdade funciona muito mais do que um texto para essa faixa etária.</p></div></li>
-          <li><div class="check-num">3</div><div><h4>Peça o transporte oficial até 14/9</h4><p>O programa <strong>Seu Voto Importa</strong> (TSE, Resolução 23.753/2026) organiza transporte de ida e volta para idosos e pessoas com deficiência, incluindo o acompanhante. Peça pelo cartório eleitoral ou pelo site do TRE do seu estado — o prazo é 20 dias antes da eleição, por volta de 14 de setembro.</p></div></li>
-          <li><div class="check-num">4</div><div><h4>Combine o transporte próprio também</h4><p>Se não for pelo programa oficial, combine carona ou app na véspera, não na hora.</p></div></li>
-          <li><div class="check-num">5</div><div><h4>Saiam cedo e usem a fila preferencial</h4><p>Quem tem 80+ tem prioridade absoluta, depois 60+, pessoas com TEA e com deficiência — muita gente não sabe que essa fila existe.</p></div></li>
-          <li><div class="check-num">6</div><div><h4>Lembre do direito ao acompanhante</h4><p>A Lei 14.364/2022 garante que uma pessoa de confiança entre na cabine para ajudar a digitar os números, quando necessário.</p></div></li>
-        </ul>
-        <div class="law-note">
-          <strong>Cuidado com o que promete:</strong> só confirmamos gratuidade no transporte público para os dias 4 e 25/10 na cidade do Rio de Janeiro (ônibus, BRT, VLT e vans, 6h-20h) e na Região Metropolitana do Recife. Listas "de todas as capitais" que circulam por aí são de 2022/2024 — não prometa isso antes da prefeitura local confirmar.
-        </div>
-        <div class="law-note" style="margin-top:12px;">
-          <strong>Lembrete legal:</strong> a lei eleitoral proíbe propaganda de qualquer candidato — inclusive camisetas, bonés ou adesivos — a até 100 metros do local de votação no dia da eleição. Ajude sem fazer campanha na fila.
-        </div>
-      </div>
-
-      <div class="planner">
-        <h3>Plano de voto de cada pessoa</h3>
-        <p style="font-size:.85rem; color:var(--ink-soft);">A técnica com mais retorno testada em pesquisa: transformar intenção em plano. Pergunte as 3 coisas abaixo para cada pessoa — salvo automaticamente neste navegador.</p>
-        <div id="idoso-list"></div>
-        <button class="mini-btn" style="margin-top:14px;" onclick="addIdoso()">+ Adicionar pessoa</button>
-        <div style="margin-top:16px;">
-          <button class="link-btn" onclick="resetIdosos()">Limpar esta lista</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="wrap">
@@ -749,6 +720,23 @@ const profiles = [
     sources: [
       ['CNN Brasil — Bolsa Família', 'https://www.cnnbrasil.com.br/economia/macroeconomia/bolsa-familia-tera-orcamento-de-r-158-bilhoes-em-2026/'],
       ['IBGE — Pnad Contínua', 'https://www.ibge.gov.br/']
+    ]
+  },
+  {
+    id: 'homens',
+    label: 'Homens em geral',
+    title: 'Para o eleitor homem — hoje o grupo mais resistente a Lula',
+    tecnica: 'Técnica: não entre em disputa de "quem é mais homem" nem em papo de valentia — isso só reforça a polarização. Repita o argumento econômico com mais força e sem meio-termo, porque esse público não está convencido por padrão.',
+    abertura: 'Puxe por algo prático do trabalho ou do dia a dia: "Como tá o movimento aí no seu setor esse ano?" — deixe a conversa chegar em emprego e renda, onde os números pesam a favor do Lula.',
+    points: [
+      'Existe hoje um "gap de gênero" real e é um dos fatores mais decisivos da eleição: pesquisa Genial/Quaest do início de agosto/2026 mostra Flávio Bolsonaro com 44% entre os homens contra 40% de Lula, enquanto entre as mulheres o placar se inverte — Lula 47%, Flávio 35%.',
+      'Outra pesquisa (BTG/Nexus, jul/2026) mostrou o mesmo padrão: Flávio com 39% entre homens contra 37% de Lula, dentro da margem de erro, mas já competitivo — a vantagem nacional de Lula é praticamente toda construída pelo voto feminino.',
+      'Isso significa que o argumento econômico (emprego recorde, renda, isenção de IR) precisa ser repetido com mais ênfase para esse público específico — ele não parte convencido, ao contrário das mulheres.',
+      'Funciona melhor puxar por setores tradicionalmente mais masculinos: retomada do emprego industrial e da construção civil, crédito para pequenos negócios e o recorde de carteiras assinadas no setor privado.'
+    ],
+    sources: [
+      ['Tribuna de Jundiaí — BTG/Nexus sobre o gap de gênero', 'https://tribunadejundiai.com.br/politica/eleicoes-2026/lula-lidera-entre-mulheres-pesquisa-btg-nexus-2026/'],
+      ['Lira da Liberdade — Genial/Quaest sobre voto por gênero', 'https://www.lirasdaliberdade.com.br/voto-feminino-amplia-vantagem-de-lula-sobre-flavio-bolsonaro/']
     ]
   },
   {
@@ -1065,7 +1053,7 @@ function matchRebuttal(text){
   });
   if(best) return best;
   return {
-    resposta: 'Não temos uma resposta pronta pra esse argumento específico na nossa biblioteca — tente o botão "Perguntar à IA" abaixo, ou use esta estrutura: 1) valide o que a pessoa sente ("entendo que isso te preocupa"), 2) pergunte o que exatamente ela viu ou ouviu, 3) ofereça um dado com fonte (use as abas de Argumentos acima) e convide a pessoa a checar sozinha num site de checagem de fatos.',
+    resposta: 'Não temos uma resposta pronta pra esse argumento específico na nossa biblioteca. Tente esta estrutura: 1) valide o que a pessoa sente ("entendo que isso te preocupa"), 2) pergunte o que exatamente ela viu ou ouviu, 3) ofereça um dado com fonte (use as abas de Argumentos acima) e convide a pessoa a checar sozinha num site de checagem de fatos.',
     fontes: [['Aos Fatos', 'https://www.aosfatos.org/'], ['Agência Lupa', 'https://www.agencialupa.org/']]
   };
 }
@@ -1081,8 +1069,10 @@ async function loadContacts(){
     contacts = [];
   }
   if(contacts.length === 0){
-    contacts = Array.from({length:5}, () => ({nome:'', feito:false, objecao:''}));
+    contacts = Array.from({length:5}, () => ({nome:'', objecao:''}));
   }
+  // migra registros antigos que tinham "feito"
+  contacts = contacts.map(c => ({nome: c.nome || '', objecao: c.objecao || ''}));
   renderContacts();
 }
 
@@ -1102,13 +1092,10 @@ function renderContacts(){
     card.className = 'contact-card';
     card.innerHTML = `
       <div class="contact-top">
-        <input type="checkbox" ${c.feito ? 'checked' : ''} onchange="toggleDone(${idx}, this.checked)">
         <input type="text" placeholder="Nome da pessoa ${idx+1}" value="${c.nome ? c.nome.replace(/"/g,'&quot;') : ''}" onchange="updateName(${idx}, this.value)">
-        <button class="mini-btn whats" onclick="openWhats(${idx})">WhatsApp</button>
-        <button class="mini-btn" onclick="copyMsg(${idx})">Copiar msg</button>
       </div>
       <div class="objection-area">
-        <label>Qual argumento essa pessoa te deu para não votar no Lula? (opcional)</label>
+        <label>Qual argumento essa pessoa te deu para não votar no Lula? (anotação sua, opcional)</label>
         <div class="quick-chips">
           ${quickObjections.map(q => `<button type="button" class="chip" onclick="pickQuick(${idx}, '${q.id}')">${q.label}</button>`).join('')}
         </div>
@@ -1116,14 +1103,12 @@ function renderContacts(){
         <textarea placeholder="Ex: ele disse que segurança piorou..." onchange="updateObjecao(${idx}, this.value)">${c.objecao ? c.objecao.replace(/</g,'&lt;') : ''}</textarea>
         <div class="objection-row">
           <button class="mini-btn" onclick="suggestReply(${idx})">Sugerir resposta</button>
-          <button class="mini-btn ai-btn" onclick="callAI(${idx})">✨ Perguntar à IA</button>
         </div>
         <div class="suggestion-box" id="suggestion-${idx}"></div>
       </div>
     `;
     list.appendChild(card);
   });
-  updateProgress();
 }
 
 function pickQuick(idx, rebuttalId){
@@ -1152,7 +1137,7 @@ function radicalAlertHtml(idx){
 }
 
 async function swapContact(idx){
-  contacts[idx] = {nome:'', feito:false, objecao:''};
+  contacts[idx] = {nome:'', objecao:''};
   await saveContacts();
   renderContacts();
 }
@@ -1174,95 +1159,13 @@ function suggestReply(idx){
   box.classList.add('show');
 }
 
-async function callAI(idx){
-  const text = contacts[idx].objecao || '';
-  const box = document.getElementById('suggestion-' + idx);
-  if(!text.trim()){
-    box.innerHTML = 'Escreva ou escolha o argumento da pessoa antes de perguntar à IA.';
-    box.classList.add('show');
-    return;
-  }
-  box.innerHTML = '<em>Pensando numa resposta...</em>';
-  box.classList.add('show');
-  try{
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 600,
-        system: 'Você ajuda um eleitor brasileiro a responder, com calma e fatos, a um argumento que um amigo ou parente deu para não votar em Lula nas eleições de 2026. Regras: valide o sentimento por trás do argumento antes de contestar; use no máximo dois fatos concretos e recentes (pode pesquisar na web para confirmar números atuais); se não tiver certeza de um dado exato, fale em termos gerais em vez de arriscar um número; nunca invente links; termine com um convite para a pessoa checar por conta própria, nunca com uma ordem; responda em português do Brasil, em no máximo 100 palavras, tom de conversa entre amigos, sem jargão de campanha. Se o argumento sugerir que a pessoa apoiou ou apoia reverter a eleição de 2022 na base da força (por exemplo, defender a invasão de 8 de janeiro de 2023, negar o resultado das urnas, pedir intervenção militar), não tente convencer: comece a resposta com "⚠️ Sinal de alerta:" e explique em 1-2 frases que esse tipo de posição raramente muda numa conversa, sugerindo trocar essa pessoa por outra mais aberta a ouvir na lista de compromisso.',
-        messages: [{ role: 'user', content: 'Argumento da pessoa: ' + text }],
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }]
-      })
-    });
-    const data = await response.json();
-    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n\n');
-    if(textBlocks.trim()){
-      box.innerHTML = textBlocks.replace(/\n/g, '<br>') + '<div class="fonte-line" style="opacity:.75;">Resposta gerada por IA na hora — confira antes de usar, e prefira as fontes das abas de Argumentos quando possível.</div>';
-    } else {
-      throw new Error('resposta vazia');
-    }
-  }catch(e){
-    const r = matchRebuttal(text);
-    let html = '<em>Não consegui gerar uma resposta com IA agora (isso só funciona dentro do Claude.ai). Segue a sugestão da nossa biblioteca:</em><br><br>' + r.resposta + (r.fontes ? '<div class="fonte-line">' + r.fontes.map(f => `<a href="${f[1]}" target="_blank" rel="noopener">${f[0]}</a>`).join('') + '</div>' : '');
-    if(r.radical){ html += radicalAlertHtml(idx); }
-    box.innerHTML = html;
-  }
-}
-
-function toggleDone(idx, checked){
-  contacts[idx].feito = checked;
-  saveContacts();
-  updateProgress();
-}
-
-function updateProgress(){
-  const done = contacts.filter(c => c.feito).length;
-  const pct = Math.round((done / contacts.length) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = done + ' de ' + contacts.length;
-}
-
-function buildMessage(idx){
-  const c = contacts[idx];
-  const name = c.nome ? c.nome : '';
-  const greet = name ? `Oi ${name}! ` : 'Oi! ';
-  return greet + 'Andei olhando uns dados sobre emprego, renda e programas sociais nos últimos anos e queria trocar uma ideia com você sobre a eleição. Separei tudo com fonte, sem enrolação — se quiser dar uma olhada, me chama que eu te mando.';
-}
-
-function openWhats(idx){
-  const text = encodeURIComponent(buildMessage(idx));
-  window.open('https://api.whatsapp.com/send?text=' + text, '_blank');
-}
-
-async function copyMsg(idx){
-  const text = buildMessage(idx);
-  try{
-    await navigator.clipboard.writeText(text);
-    alert('Mensagem copiada!');
-  }catch(e){
-    prompt('Copie a mensagem abaixo:', text);
-  }
-}
-
 async function resetContacts(){
-  contacts = Array.from({length:5}, () => ({nome:'', feito:false, objecao:''}));
+  contacts = Array.from({length:5}, () => ({nome:'', objecao:''}));
   await saveContacts();
   renderContacts();
 }
 
-document.getElementById('meu-nome').addEventListener('change', async (e) => {
-  try{ await window.storage.set('corrente-meu-nome', e.target.value, false); }catch(err){}
-});
-async function loadMeuNome(){
-  try{
-    const res = await window.storage.get('corrente-meu-nome', false);
-    if(res && res.value) document.getElementById('meu-nome').value = res.value;
-  }catch(e){}
-}
-
-// ---------------- Dia da Eleição — planner de idosos ----------------
+// ---------------- Dia da Eleição — minhas anotações ----------------
 let idosos = [];
 
 async function loadIdosos(){
@@ -1273,12 +1176,12 @@ async function loadIdosos(){
     idosos = [];
   }
   if(idosos.length === 0){
-    idosos = [{nome:'', horario:'', saida:'', antes:'', feito:false}];
+    idosos = [{nome:'', notas:''}];
   }
-  // migra registros antigos que só tinham "transporte"
+  // migra registros antigos (checkbox e campos separados de plano de voto)
   idosos = idosos.map(p => ({
-    nome: p.nome || '', horario: p.horario || '', saida: p.saida || (p.transporte || ''),
-    antes: p.antes || '', feito: !!p.feito
+    nome: p.nome || '',
+    notas: p.notas || [p.horario, p.saida, p.antes].filter(Boolean).join(' · ') || ''
   }));
   renderIdosos();
 }
@@ -1287,7 +1190,7 @@ async function saveIdosos(){
   try{
     await window.storage.set('dia-eleicao-idosos', JSON.stringify(idosos), false);
   }catch(e){
-    console.error('Erro ao salvar lista de idosos', e);
+    console.error('Erro ao salvar anotações', e);
   }
 }
 
@@ -1299,15 +1202,10 @@ function renderIdosos(){
     card.className = 'idoso-card';
     card.innerHTML = `
       <div class="idoso-top">
-        <input type="checkbox" ${p.feito ? 'checked' : ''} onchange="toggleIdosoDone(${idx}, this.checked)">
         <input type="text" placeholder="Nome da pessoa" value="${p.nome ? p.nome.replace(/"/g,'&quot;') : ''}" onchange="updateIdosoField(${idx}, 'nome', this.value)">
         <button class="mini-btn" onclick="removeIdoso(${idx})">✕</button>
       </div>
-      <div class="idoso-plan">
-        <div><label>A que horas vai votar</label><input type="text" placeholder="Ex: 9h" value="${p.horario ? p.horario.replace(/"/g,'&quot;') : ''}" onchange="updateIdosoField(${idx}, 'horario', this.value)"></div>
-        <div><label>De onde vai sair</label><input type="text" placeholder="Ex: de casa" value="${p.saida ? p.saida.replace(/"/g,'&quot;') : ''}" onchange="updateIdosoField(${idx}, 'saida', this.value)"></div>
-        <div><label>O que vai fazer antes</label><input type="text" placeholder="Ex: tomar café" value="${p.antes ? p.antes.replace(/"/g,'&quot;') : ''}" onchange="updateIdosoField(${idx}, 'antes', this.value)"></div>
-      </div>
+      <textarea placeholder="Anotações: quando vai votar, quem na família ela quer ver beneficiado, o que combinar..." onchange="updateIdosoField(${idx}, 'notas', this.value)">${p.notas ? p.notas.replace(/</g,'&lt;') : ''}</textarea>
     `;
     list.appendChild(card);
   });
@@ -1318,33 +1216,27 @@ function updateIdosoField(idx, field, value){
   saveIdosos();
 }
 
-function toggleIdosoDone(idx, checked){
-  idosos[idx].feito = checked;
-  saveIdosos();
-}
-
 function addIdoso(){
-  idosos.push({nome:'', horario:'', saida:'', antes:'', feito:false});
+  idosos.push({nome:'', notas:''});
   saveIdosos();
   renderIdosos();
 }
 
 function removeIdoso(idx){
   idosos.splice(idx, 1);
-  if(idosos.length === 0) idosos.push({nome:'', horario:'', saida:'', antes:'', feito:false});
+  if(idosos.length === 0) idosos.push({nome:'', notas:''});
   saveIdosos();
   renderIdosos();
 }
 
 async function resetIdosos(){
-  idosos = [{nome:'', horario:'', saida:'', antes:'', feito:false}];
+  idosos = [{nome:'', notas:''}];
   await saveIdosos();
   renderIdosos();
 }
 
 // ---------------- init ----------------
 loadContacts();
-loadMeuNome();
 loadIdosos();
 </script>
 
