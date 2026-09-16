@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4GJ53NZVPE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4GJ53NZVPE');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Todos com Lula — Hub Lula 2026</title>
@@ -325,6 +316,49 @@
     font-family:'Public Sans',sans-serif; font-size:.87rem; resize:vertical;
   }
 
+  /* ---------- COMPARAÇÃO COMPLETA ---------- */
+  .compare-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;}
+  .compare-tab{
+    padding:9px 14px; border-radius:999px; border:2px solid var(--ink);
+    background:var(--paper); font-weight:600; font-size:.82rem; cursor:pointer;
+  }
+  .compare-tab.active{background:var(--ink); color:var(--cream);}
+  .compare-panel{display:none;}
+  .compare-panel.active{display:block;}
+  .compare-table{
+    width:100%; border-collapse:collapse; background:var(--paper);
+    border:2px solid var(--ink); border-radius:12px; overflow:hidden;
+    margin-bottom:14px; font-size:.92rem;
+  }
+  .compare-table th, .compare-table td{
+    padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);
+  }
+  .compare-table thead th{
+    background:var(--ink); color:var(--cream); font-family:'Fraunces',serif; font-weight:700; font-size:.88rem;
+  }
+  .compare-table tbody tr:last-child td{border-bottom:none;}
+  .compare-table td.indicador{font-weight:700; width:26%;}
+  .compare-table .sub{display:block; font-weight:500; font-size:.74rem; color:var(--ink-soft); margin-top:2px;}
+  .compare-table td.bol{color:var(--red-deep);}
+  .compare-table td.lula{color:var(--green); font-weight:600;}
+  .compare-table td .note{display:block; font-size:.78rem; font-weight:500; color:var(--ink-soft); margin-top:3px;}
+  .compare-caveat{
+    background:#FCEFD8; border:1px solid var(--gold); border-radius:10px; padding:14px 16px;
+    font-size:.85rem; margin-bottom:16px;
+  }
+  .compare-sources{font-size:.78rem; color:var(--ink-soft); margin-top:4px;}
+  .compare-sources a{color:var(--red); font-weight:600; text-decoration:none; margin-right:10px;}
+  .compare-sources a:hover{text-decoration:underline;}
+  @media (max-width:700px){
+    .compare-table, .compare-table thead, .compare-table tbody, .compare-table th, .compare-table td, .compare-table tr{display:block;}
+    .compare-table thead{display:none;}
+    .compare-table tr{border-bottom:2px solid var(--line); padding:10px 0;}
+    .compare-table td{border-bottom:none; padding:6px 4px;}
+    .compare-table td.indicador{width:auto;}
+    .compare-table td.bol::before{content:"Bolsonaro: "; font-weight:700; color:var(--ink);}
+    .compare-table td.lula::before{content:"Lula: "; font-weight:700; color:var(--ink);}
+  }
+
   /* ---------- CANDIDATOS POR UF ---------- */
   .uf-picker{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:24px;}
   .uf-picker select{
@@ -376,6 +410,7 @@
       <a href="#argumentos">Argumentos</a>
       <a href="#conversar">Como Conversar</a>
       <a href="#simulador">Simulador</a>
+      <a href="#comparacao">Dados comparados</a>
       <a href="#hub">Fontes confiáveis</a>
     </div>
   </div>
@@ -554,6 +589,23 @@
 </section>
 
 
+
+<section id="comparacao" style="background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Guia de bolso — atualizado em 13 de setembro</div>
+      <h2>Dados comparados</h2>
+      <p>Todos os indicadores lado a lado, por área, para consulta rápida. Use isso quando alguém pedir número específico. Fonte: <strong>Guia de bolso do PT</strong>.</p>
+    </div>
+
+    <div class="compare-caveat">
+      <strong>Como comparar sem distorcer:</strong> os números de "Bolsonaro" são o resultado final do mandato dele (em geral 2022); os de "Lula" trazem o dado mais recente disponível deste mandato (2025/2026), então os dois períodos não têm sempre a mesma duração. Isso é intencional — a pergunta que importa é "como o país está agora, comparado a como ficou depois de 4 anos de Bolsonaro" — mas vale ser transparente sobre isso se alguém perguntar.
+    </div>
+
+    <div class="compare-tabs" id="compare-tabs"></div>
+    <div id="compare-panels"></div>
+  </div>
+</section>
 
 <section id="hub">
   <div class="wrap">
@@ -923,6 +975,304 @@ profiles.forEach((p, i) => {
 function selectProfile(id){
   document.querySelectorAll('.profile-tab').forEach(t => t.classList.toggle('active', t.dataset.id === id));
   document.querySelectorAll('.profile-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+}
+
+// ---------------- Comparação completa (Guia de Bolso) ----------------
+const comparativos = [
+  {
+    id: 'orcamento',
+    label: 'Orçamento',
+    tables: [
+      {
+        cols: ['Indicador', 'Bolsonaro (2022)', 'Lula (2026)'],
+        rows: [
+          {c1:'Educação (ministério)', c2:'R$ 166,09 bilhões', c3:'R$ 270,37 bilhões'},
+          {c1:'Saúde (ministério)', c2:'R$ 166,42 bilhões', c3:'R$ 272,79 bilhões'},
+          {c1:'Ciência e Tecnologia (ministério)', c2:'R$ 12,88 bilhões', c3:'R$ 32,66 bilhões'},
+          {c1:'Segurança Pública (ministério)', c2:'R$ 18,41 bilhões', c3:'R$ 26,36 bilhões'},
+          {c1:'Meio Ambiente (ministério)', c2:'R$ 3,52 bilhões', c3:'R$ 47,90 bilhões'},
+          {c1:'Agricultura e Organização Agrária (função orçamentária)', c2:'R$ 32,78 bilhões', c3:'R$ 45,22 bilhões'},
+          {c1:'Cultura (função orçamentária)', c2:'R$ 1,68 bilhão', c3:'R$ 3,89 bilhão'},
+          {c1:'Habitação (função orçamentária)', c2:'R$ 42,16 milhões', c2note:'Corte de mais de 90% para 2023', c3:'R$ 3,79 bilhões', c3note:'90 vezes maior'},
+          {c1:'Saneamento básico (função orçamentária)', c2:'R$ 767,3 milhões', c2note:'Corte de mais de 90% para 2023', c3:'R$ 1,4 bilhão'}
+        ]
+      },
+      {
+        cols: ['Indicador', 'Bolsonaro (2022)', 'Lula'],
+        rows: [
+          {c1:'Transferência para estados', c2:'R$ 271,16 bilhões', c3:'R$ 326,21 bilhões', c3note:'em 2025'},
+          {c1:'Transferência para municípios', c2:'R$ 355,76 bilhões', c3:'R$ 507,23 bilhões', c3note:'em 2025'}
+        ]
+      }
+    ],
+    listBlock: {
+      title: 'Orçamento deixado por Bolsonaro para 2023',
+      items: [
+        'Corte de 59% para o Farmácia Popular',
+        'Corte de 50,7% para o Mais Médicos',
+        'Corte de 45% para prevenção e controle do câncer',
+        'Corte de 97% na verba para infraestrutura escolar',
+        'Verba suficiente para apenas um ônibus escolar',
+        'Corte de mais de 90% para prevenção de desastres',
+        'Corte de mais de 90% para cisternas no semiárido',
+        'Corte de mais de 90% para o Minha Casa, Minha Vida',
+        'Corte de mais de 90% para o Sistema Único de Assistência Social',
+        'Sem verba para Bolsa Família de R$ 600',
+        'Merenda escolar sem aumento — reajuste vetado por Bolsonaro',
+        'Aumento da verba para o orçamento secreto'
+      ]
+    },
+    sourceNote: 'Guia de bolso do PT.'
+  },
+  {
+    id: 'economia',
+    label: 'Economia',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Dólar', c2:'Dez/2018: R$ 3,88 → Dez/2022: R$ 5,28', c2note:'Aumento de 36%', c3:'Dez/2022: R$ 5,28 → Ago/2026: R$ 5,18', c3note:'Estabilidade'},
+        {c1:'Ibovespa', c2:'Dez/2018: 87,9 mil pontos → Dez/2022: 109,7 mil pontos', c2note:'Aumento de 25%', c3:'Dez/2022: 109,7 mil pontos → Ago/2026: 177,4 mil pontos', c3note:'Aumento de 62%'},
+        {c1:'Taxa de juros', c2:'Dez/2018: 6,50% → Dez/2022: 13,75%', c2note:'Aumento de 7,25 p.p.', c3:'Dez/2022: 13,75% → Ago/2026: 14,00%', c3note:'Previsão fim de 2026: 13,75% (Boletim Focus)'},
+        {c1:'Inflação média', c2:'6,2% a.a.', c3:'4,6% a.a.', c3note:'Até jul/2026 — a menor de um mandato presidencial'},
+        {c1:'Reservas internacionais', c2:'Queda de US$ 50 bilhões', c2note:'US$ 374,4 bi (dez/2018) → US$ 324,7 bi (dez/2022)', c3:'Aumento de US$ 45 bilhões', c3note:'US$ 324,7 bi (dez/2022) → US$ 369,7 bi (jul/2026)'},
+        {c1:'Exportações', c2:'US$ 905,04 bilhões', c2note:'até julho do último ano do mandato', c3:'US$ 1,244 trilhão', c3note:'Aumento de 37%'},
+        {c1:'Índice de Gini', c2:'Média de 53,18', c2note:'quanto maior, mais desigual', c3:'Média de 51,07', c3note:'até 2025'},
+        {c1:'Índice da miséria', c2:'14,35 em dez/2022', c2note:'inflação + desemprego', c3:'10,19 em jul/2026'},
+        {c1:'Risco Brasil (CDS 5 anos)', c2:'Início: 207,5 → Fim: 254,4', c2note:'Aumento de 23%', c3:'Início: 254,4 → Set/2026: 118,7', c3note:'Queda de 53%'}
+      ]
+    }],
+    sourceNote: 'Guia de bolso do PT.'
+  },
+  {
+    id: 'emprego',
+    label: 'Emprego e Renda',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Desemprego médio', c2:'12,0%', c2note:'2019–2022', c3:'6,7%', c3note:'2023–2025'},
+        {c1:'Desemprego mínimo (anual)', c2:'9,3% (2022)', c3:'5,6% (2025)', c3note:'Menor nível da série histórica'},
+        {c1:'Empregos formais gerados', c2:'6,2 milhões', c3:'10,1 milhões'},
+        {c1:'Renda média dos trabalhadores', c2:'Caiu R$ 33', c2note:'Dez/2018: R$ 3.343 → Dez/2022: R$ 3.310 (valores corrigidos pelo IPCA)', c3:'Aumentou R$ 428', c3note:'Dez/2022: R$ 3.310 → Jun/2026: R$ 3.738 (valores corrigidos pelo IPCA)'},
+        {c1:'Isenção do Imposto de Renda (faixa inicial)', c2:'R$ 1.903,98', c2note:'4 anos com tabela congelada', c3:'R$ 5.000', c3note:'Correção todos os anos; mais 15 milhões de brasileiros ficaram isentos'},
+        {c1:'Valorização do salário mínimo', c2:'4 anos sem ganho real', c2note:'reajuste só pela inflação', c3:'Aumento real acima da inflação todos os anos', c3note:'Aumento real já acumula 11,8%'},
+        {c1:'Servidores públicos', c2:'Servidores perseguidos e tratados como inimigos', c2note:'Paulo Guedes, em reunião ministerial: "Nós já botamos a granada no bolso do inimigo. Dois anos sem aumento de salário"', c3:'Mesas de negociação retomadas', c3note:'Todas as categorias tiveram reajuste; duas edições do Concurso Nacional Unificado'},
+        {c1:'Fim da escala 6x1', c2:'Votos contrários vieram da base bolsonarista', c2note:'inclusive o coordenador da campanha de Flávio Bolsonaro', c3:'Apoio ao fim da escala 6x1, sem redução de salário'}
+      ]
+    }]
+  },
+  {
+    id: 'fome',
+    label: 'Fome e Pobreza',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'População com fome (dados ONU)', c2:'8,5% em 2022', c2note:'Maior valor da história — Brasil de volta ao Mapa da Fome', c3:'0,6% em 2025', c3note:'Menor valor da história — Brasil fora do Mapa da Fome mais uma vez'},
+        {c1:'Taxa de pobreza (% população)', c2:'31,6% (2022)', c3:'25,1% (2025)'},
+        {c1:'Extrema pobreza (% população)', c2:'5,9% (2022)', c3:'3,4% (2025)'},
+        {c1:'Repasse para merenda escolar', c2:'4 anos sem reajuste', c2note:'Escolas precisaram dividir ovo; Bolsonaro vetou aumento aprovado pelo Congresso para 2023', c3:'Dois reajustes (2023 e 2026)', c3note:'Valor repassado já aumentou 55%, com mais compra de alimentos da agricultura familiar'}
+      ]
+    }]
+  },
+  {
+    id: 'social',
+    label: 'Programas Sociais',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Minha Casa, Minha Vida — moradias faixa 1', c2:'1.500', c2note:'famílias de baixa renda', c3:'277 mil neste mandato', c3note:'1,95 milhão somando com Lula e Dilma'},
+        {c1:'Minha Casa, Minha Vida — total (todas as faixas)', c2:'1,5 milhão', c3:'2,6 milhões neste mandato', c3note:'5,3 milhões somando com Lula e Dilma'},
+        {c1:'Cisternas entregues', c2:'52 mil', c2note:'mais de 30 mil já contratadas por governos anteriores', c3:'121 mil neste mandato', c3note:'1,1 milhão somando com Lula e Dilma'}
+      ]
+    }]
+  },
+  {
+    id: 'inflacao',
+    label: 'Inflação e Poder de Compra',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Inflação média', c2:'6,2% a.a.', c3:'4,6% a.a.', c3note:'A menor de um mandato presidencial'},
+        {c1:'Inflação de alimentos (domicílio)', c2:'56,16%', c2note:'2019 a 2022', c3:'13,64%', c3note:'2023 a jul/2026 — menos de um quarto'},
+        {c1:'Poder de compra — cesta básica (São Paulo)', c2:'Aumentou R$ 538', c2note:'R$ 709 (dez/2018) → R$ 1.247 (dez/2022)', c3:'Aumentou R$ 88', c3note:'R$ 1.247 (dez/2022) → R$ 1.335 (jul/2026)'},
+        {c1:'Poder de compra — salário mínimo', c2:'Aumentou R$ 258', c2note:'R$ 954 (2018) → R$ 1.212 (2022)', c3:'Aumentou R$ 409', c3note:'R$ 1.212 (2022) → R$ 1.621 (2026)'}
+      ]
+    }]
+  },
+  {
+    id: 'saude',
+    label: 'Saúde',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Mais Médicos (profissionais atuando)', c2:'13,7 mil em 2022', c2note:'corte de 50% no orçamento para 2023', c3:'26,7 mil em 2026', c3note:'Dobrou o número'},
+        {c1:'Consultas e teleconsultas', c2:'13 milhões em 2022', c3:'31 milhões em 2025', c3note:'Quase 2,5 vezes mais'},
+        {c1:'Cirurgias eletivas', c2:'10 milhões em 2022', c3:'15 milhões em 2025', c3note:'50% a mais'},
+        {c1:'Unidades odontológicas móveis adquiridas', c2:'Nenhuma', c3:'987'},
+        {c1:'Equipes de saúde bucal', c2:'28,2 mil em 2022', c3:'34,5 mil em 2026', c3note:'6 mil a mais'},
+        {c1:'Cobertura da vacinação infantil', c2:'Queda nos índices (2022): pentavalente 77,33%, pneumocócica 81,60%, poliomielite 77,30%, tríplice viral 80,79%', c3:'Retomada (2025): pentavalente 88,82%, pneumocócica 92,94%, poliomielite 87,51%, tríplice viral 92,94%', c3note:'Crianças sem a 1ª dose da pentavalente caiu quase 90%'},
+        {c1:'Orçamento da saúde', c2:'Corte de recursos para investimentos', c2note:'inclusive no orçamento deixado para 2023', c3:'Maior orçamento da história do SUS', c3note:'Mais de 70% de crescimento em relação a 2022'},
+        {c1:'Farmácia Popular', c2:'Corte de 59% no orçamento deixado para 2023', c3:'Retomada do orçamento', c3note:'Pela 1ª vez, todos os 41 itens gratuitos; 25 milhões de pessoas atendidas em 2025 (3 milhões a mais que em 2022)'},
+        {c1:'Ministros', c2:'4 ministros durante a pandemia', c2note:'um deles disse "não sabia nem o que era o SUS"', c3:'Perfil técnico', c3note:'Engajamento na promoção de boas práticas de saúde, como a vacinação'}
+      ]
+    }]
+  },
+  {
+    id: 'educacao',
+    label: 'Educação',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Campi universitários criados', c2:'5', c3:'18 neste mandato', c3note:'200 com Lula e Dilma; o Brasil tem 344'},
+        {c1:'Orçamento das universidades federais', c2:'R$ 66,9 bilhões', c3:'R$ 97,1 bilhões'},
+        {c1:'Institutos federais criados', c2:'16', c3:'124 neste mandato', c3note:'627 com Lula e Dilma; o Brasil tem 803'},
+        {c1:'Orçamento dos institutos federais', c2:'R$ 17 bilhões (2022)', c3:'R$ 26,7 bilhões (2026)'},
+        {c1:'Orçamento dos hospitais universitários', c2:'R$ 11,8 bilhões (2022)', c3:'R$ 19,9 bilhões (2026)', c3note:'Modernização de 30 hospitais; 15 novos sendo implementados'},
+        {c1:'Crianças alfabetizadas na idade certa', c2:'36% (2021)', c3:'66% (2025)'},
+        {c1:'Analfabetismo', c2:'7% (2022)', c3:'Abaixo de 5% pela primeira vez na história (2025)'},
+        {c1:'Matrículas em tempo integral (rede pública)', c2:'18,5% (2022)', c3:'25,8% (2025)', c3note:'1,8 milhão de matrículas criadas'},
+        {c1:'Municípios com políticas de educação integral', c2:'Menos de 20%', c3:'91% (2025)'},
+        {c1:'Orçamento do MEC', c2:'Corte de recursos', c2note:'orçamento deixado para 2023 cortou 97% da verba de infraestrutura escolar', c3:'Crescimento de 63,6% (2022–2026)', c3note:'R$ 104 bilhões a mais'},
+        {c1:'Capes', c2:'Orçamento 2022: R$ 3,6 bilhões', c2note:'bolsas sem reajuste', c3:'Orçamento 2025: R$ 5,7 bilhões', c3note:'Reajuste de 40% nas bolsas de pós-graduação e 75% nas do Pibid'},
+        {c1:'Transporte escolar', c2:'Orçamento deixado para 2023 dava para apenas um ônibus escolar', c3:'Caminho da Escola: 12,9 mil ônibus entregues', c3note:'+30% no orçamento entre 2023 e 2026'},
+        {c1:'Escolas públicas conectadas', c2:'Bolsonaro vetou projeto de internet gratuita em plena pandemia', c2note:'veto derrubado pelo Congresso', c3:'45% (2023) → 71% (2025)', c3note:'Mais de 100 mil escolas conectadas'},
+        {c1:'Política de permanência no ensino médio', c2:'Nenhuma política criada', c3:'Pé-de-Meia'},
+        {c1:'Abandono escolar (ensino médio)', c2:'6,4% (2022)', c3:'3,6% (2024)'},
+        {c1:'Estudantes com atraso escolar (ensino médio)', c2:'24,3% (2022)', c3:'17,6% (2025)'},
+        {c1:'Merenda escolar', c2:'6 anos sem reajuste', c2note:'reajuste vetado por Bolsonaro para 2023', c3:'Dois reajustes (2023 e 2026)', c3note:'Aumento de 55%, com mais alimentos da agricultura familiar'},
+        {c1:'Livros didáticos', c2:'R$ 1,7 bilhão (2022)', c2note:'131 milhões de livros adquiridos', c3:'R$ 2,7 bilhões (2026)', c3note:'213 milhões de livros adquiridos'},
+        {c1:'Inscrições no Enem', c2:'3,5 milhões (2022)', c3:'4,8 milhões (2025)'},
+        {c1:'Orçamento para assistência estudantil', c2:'R$ 1,7 bilhão (2022)', c3:'R$ 2,7 bilhões (2026)'},
+        {c1:'Bolsa permanência para indígenas e quilombolas', c2:'8.670 bolsas (2022)', c3:'17.500 bolsas (2026)', c3note:'Reajuste de R$ 900 para R$ 1.400'}
+      ]
+    }]
+  },
+  {
+    id: 'seguranca',
+    label: 'Segurança Pública',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Realizações', c2:'Afrouxou o controle e incentivou o acesso a armas', c2note:'permitiu a compra de até 60 armas (30 fuzis) e 180 mil munições por ano por pessoa; muitas pararam nas mãos de facções e milícias', c3:'Fim do "liberou geral" de armas', c3note:'asfixia financeira do crime organizado; criação de presídios de segurança máxima; combate ao tráfico de armas e drogas e ao feminicídio'},
+        {c1:'Apreensão de bens e recursos do crime organizado', c2:'R$ 1 bilhão em 2022', c3:'R$ 17 bilhões em 2025'},
+        {c1:'Prisões de segurança máxima', c2:'Não criou nenhuma', c3:'Lula criou 4 das 5 existentes no país', c3note:'em seus dois primeiros mandatos (a quinta foi iniciada por Dilma); hoje leva o padrão a 138 presídios estaduais'},
+        {c1:'Homicídios e latrocínios', c2:'39,8 mil em 2022', c3:'32,3 mil em 2025', c3note:'Queda de 19%'},
+        {c1:'Roubo de veículos', c2:'148,1 mil em 2022', c3:'104,5 mil em 2025', c3note:'Queda de 29%'},
+        {c1:'Roubo de cargas', c2:'13,1 mil em 2022', c3:'8,6 mil em 2025', c3note:'Queda de 35%'},
+        {c1:'Roubo de celulares', c2:'492,9 mil em 2022', c3:'308,7 mil em 2025', c3note:'Queda de 37%'}
+      ]
+    }],
+    sourceNote: 'Guia de bolso do PT.'
+  },
+  {
+    id: 'ambiente',
+    label: 'Meio Ambiente',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Desmatamento', c2:'Maior desmatamento na Amazônia em 15 anos', c2note:'13.038 km² em 2021 — aumento de quase 60% até 2022', c3:'Menor desmatamento da série histórica', c3note:'5.731 km² em 2025 — queda de 67% desde 2022, em todos os biomas'},
+        {c1:'Garimpo ilegal', c2:'Aumento, inclusive em terras indígenas', c2note:'decreto de 2022 facilitava o garimpo ilegal', c3:'Derrubada do decreto', c3note:'Mais de 10 mil ações contra o garimpo; garimpo ilegal em terra Yanomami caiu mais de 98%'},
+        {c1:'Ministros do Meio Ambiente', c2:'"Passou a boiada" e desmontou a fiscalização', c2note:'afastado após denúncia de contrabando de produtos florestais', c3:'Ministra respeitada mundialmente', c3note:'Retomada das políticas ambientais; destaque na COP30, realizada no Brasil'},
+        {c1:'Bolsa Verde', c2:'Encerrado por Temer, seguiu paralisado', c3:'Retomado em 2023', c3note:'87 mil famílias beneficiadas em 2026'}
+      ]
+    }]
+  },
+  {
+    id: 'infra',
+    label: 'Infraestrutura',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro (2022)', 'Lula (jul/2026)'],
+      rows: [
+        {c1:'Qualidade das rodovias federais (CNT/DNIT)', c2:'52% boa · 23% ruim/péssimo', c3:'78% boa · 8% ruim/péssimo'}
+      ]
+    }]
+  },
+  {
+    id: 'internacional',
+    label: 'Política Internacional',
+    tables: [{
+      cols: ['Indicador', 'Bolsonaro', 'Lula'],
+      rows: [
+        {c1:'Novos mercados abertos no exterior', c2:'242 em quatro anos', c3:'678 novos mercados', c3note:'93 países e territórios até ago/2026 — aumento de 179%'},
+        {c1:'Exportações', c2:'US$ 905,04 bilhões', c3:'US$ 1,244 trilhão', c3note:'Aumento de 37%'},
+        {c1:'Reuniões com chefes de Estado', c2:'70 reuniões', c2note:'33 países + ONU', c3:'257 reuniões', c3note:'2 papas e 113 chefes de Estado/Governo; 77 países + ONU + União Europeia'},
+        {c1:'Chefes de Estado recebidos no Brasil', c2:'20', c2note:'18 países', c3:'86', c3note:'68 países + ONU + União Europeia'},
+        {c1:'Participação em cúpulas internacionais', c2:'26', c2note:'10 presenciais, 16 virtuais', c3:'59', c3note:'51 presenciais, 8 virtuais'},
+        {c1:'Cúpulas internacionais realizadas no Brasil', c2:'2 cúpulas', c3:'12 cúpulas', c3note:'Inclui G20, COP30, BRICS e Mercosul'},
+        {c1:'Instrumentos de cooperação assinados', c2:'379 em quatro anos', c3:'551 até ago/2026', c3note:'Aumento de 45%'}
+      ]
+    }],
+    sourceNote: 'Guia de bolso do PT.'
+  },
+  {
+    id: 'congresso',
+    label: 'Congresso Nacional',
+    tables: [{
+      cols: ['Ano', 'Prioridades da oposição', 'Prioridades do governo Lula'],
+      rows: [
+        {c1:'2023', c2:'Anistia para golpistas do 8 de janeiro', c3:'Política permanente de valorização do salário mínimo', c3note:'Aprovada'},
+        {c1:'2024', c2:'Anistia para golpistas do 8 de janeiro', c3:'Reforma tributária com imposto zero na cesta básica', c3note:'Aprovada, com votos contrários do PL'},
+        {c1:'2025', c2:'"Dosimetria" para os golpistas do 8 de janeiro — aprovada; PEC da blindagem, para se proteger de investigações — aprovada na Câmara com votos bolsonaristas', c3:'Isenção do Imposto de Renda para quem recebe até R$ 5 mil — aprovada; PEC da Segurança Pública — aprovada na Câmara', c3note:'Oposição tentou atrapalhar a tramitação da isenção e retirar a taxação de super-ricos'},
+        {c1:'2026', c2:'Derrubar o veto à "dosimetria" dos golpistas; impedir a votação do fim da escala 6x1', c3:'Fim da escala 6x1 — aprovado na Câmara e na CCJ do Senado (com votos contrários do PL); PEC da Segurança Pública em avanço no Senado; PL de Minerais Críticos — aprovado'}
+      ]
+    }]
+  }
+];
+
+const compareTabsEl = document.getElementById('compare-tabs');
+const comparePanelsEl = document.getElementById('compare-panels');
+
+function renderCompareTable(table){
+  const rowsHtml = table.rows.map(r => `
+    <tr>
+      <td class="indicador">${r.c1}</td>
+      <td class="bol">${r.c2}${r.c2note ? `<span class="note">${r.c2note}</span>` : ''}</td>
+      <td class="lula">${r.c3}${r.c3note ? `<span class="note">${r.c3note}</span>` : ''}</td>
+    </tr>
+  `).join('');
+  return `
+    <table class="compare-table">
+      <thead><tr><th>${table.cols[0]}</th><th>${table.cols[1]}</th><th>${table.cols[2]}</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+  `;
+}
+
+comparativos.forEach((c, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'compare-tab' + (i===0 ? ' active' : '');
+  tab.textContent = c.label;
+  tab.onclick = () => selectComparativo(c.id);
+  tab.dataset.id = c.id;
+  compareTabsEl.appendChild(tab);
+
+  const panel = document.createElement('div');
+  panel.className = 'compare-panel' + (i===0 ? ' active' : '');
+  panel.id = 'cpanel-' + c.id;
+
+  let html = c.tables.map(renderCompareTable).join('');
+
+  if(c.listBlock){
+    html += `
+      <div class="hub-card" style="cursor:default; margin-top:6px;">
+        <div class="src">${c.listBlock.title}</div>
+        <ul style="margin:8px 0 0; padding-left:18px;">
+          ${c.listBlock.items.map(it => `<li style="margin-bottom:6px; font-size:.88rem;">${it}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if(c.sourceNote){
+    html += `<p class="compare-sources">Fontes: ${c.sourceNote}</p>`;
+  }
+
+  panel.innerHTML = html;
+  comparePanelsEl.appendChild(panel);
+});
+
+function selectComparativo(id){
+  document.querySelectorAll('.compare-tab').forEach(t => t.classList.toggle('active', t.dataset.id === id));
+  document.querySelectorAll('.compare-panel').forEach(p => p.classList.toggle('active', p.id === 'cpanel-' + id));
 }
 
 // ---------------- Simulador: contexto x perfil ----------------
